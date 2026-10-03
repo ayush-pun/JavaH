@@ -2,6 +2,8 @@ package org.ayushcontinue;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Laptop {
 
@@ -11,15 +13,15 @@ public class Laptop {
     private String Lmodel;
     private int ram;
 
-    @ManyToOne
-    private Alien alien;
+    @ManyToMany(mappedBy = "laptops")
+    private List<Alien> aliens;
 
-    public Alien getAlien() {
-        return alien;
+    public List<Alien> getAliens() {
+        return aliens;
     }
 
-    public void setAlien(Alien alien) {
-        this.alien = alien;
+    public void setAliens(List<Alien> aliens) {
+        this.aliens = aliens;
     }
 
     public int getLid() {

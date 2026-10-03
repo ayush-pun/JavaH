@@ -20,7 +20,6 @@ public class Main {
         laptop.setLmodel("m4");
         laptop.setRam(16);
 
-
         Laptop laptop1 = new Laptop();
         laptop1.setLid(2);
         laptop1.setLname("macbook pro");
@@ -43,12 +42,19 @@ public class Main {
         alien1.setaName("anish");
         alien1.setTech("python developer");
 
-        alien.setLaptops(Arrays.asList(laptop,laptop1));
-        alien1.setLaptops(Arrays.asList(laptop2));
+        Alien alien2 = new Alien();
+        alien2.setaId(103);
+        alien2.setaName("bishal");
+        alien2.setTech("react developer");
 
-        laptop.setAlien(alien);
-        laptop1.setAlien(alien);
-        laptop2.setAlien(alien1);
+        alien.setLaptops(Arrays.asList(laptop,laptop1));
+        alien1.setLaptops(Arrays.asList(laptop,laptop2));
+        alien2.setLaptops(Arrays.asList(laptop1,laptop2));
+
+        laptop.setAliens(Arrays.asList(alien,alien1));
+        laptop1.setAliens(Arrays.asList(alien1,alien2));
+        laptop2.setAliens(Arrays.asList(alien1,alien2));
+
 
         Configuration cf = new Configuration();
 
@@ -62,10 +68,13 @@ public class Main {
         Transaction transaction = session.beginTransaction();
         session.persist(alien);
         session.persist(alien1);
+        session.persist(alien2);
 
         session.persist(laptop);
         session.persist(laptop1);
         session.persist(laptop2);
+
+        session.find(Alien.class,102);
 
 
         transaction.commit();
