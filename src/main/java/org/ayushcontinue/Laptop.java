@@ -1,9 +1,6 @@
 package org.ayushcontinue;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Laptop {
@@ -14,7 +11,7 @@ public class Laptop {
     private String Lmodel;
     private int ram;
 
-    @OneToOne(mappedBy = "laptop")
+    @ManyToOne
     private Alien alien;
 
     public Alien getAlien() {
@@ -66,4 +63,6 @@ public class Laptop {
                 ", ram=" + ram +
                 '}';
     }
+
+
 }

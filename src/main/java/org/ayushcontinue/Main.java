@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.awt.font.LayoutPath;
+import java.util.Arrays;
 import java.util.jar.JarOutputStream;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -26,19 +27,28 @@ public class Main {
         laptop1.setLmodel("m5");
         laptop1.setRam(32);
 
+        Laptop laptop2 = new Laptop();
+        laptop2.setLid(3);
+        laptop2.setLname("acer-nitro");
+        laptop2.setLmodel("v16");
+        laptop2.setRam(16);
+
         Alien alien = new Alien();
         alien.setaId(101);
         alien.setaName("ayush");
         alien.setTech("java developer");
-        alien.setLaptop(laptop);
+
+        Alien alien1 = new Alien();
+        alien1.setaId(102);
+        alien1.setaName("anish");
+        alien1.setTech("python developer");
+
+        alien.setLaptops(Arrays.asList(laptop,laptop1));
+        alien1.setLaptops(Arrays.asList(laptop2));
+
         laptop.setAlien(alien);
-
-        Alien alien2 = new Alien();
-        alien2.setaId(102);
-        alien2.setaName("Ram");
-        alien2.setTech("Python");
-
-
+        laptop1.setAlien(alien);
+        laptop2.setAlien(alien1);
 
         Configuration cf = new Configuration();
 
@@ -50,32 +60,16 @@ public class Main {
         Session session = sf.openSession();
 
         Transaction transaction = session.beginTransaction();
+        session.persist(alien);
+        session.persist(alien1);
+
         session.persist(laptop);
         session.persist(laptop1);
-        session.persist(alien);
-        session.persist(alien2);
+        session.persist(laptop2);
 
 
         transaction.commit();
 
-
-        System.out.println("we are finding the laptop from the alioen");
-
-        Alien alien1 = session.find(Alien.class, 101);
-        Laptop laptop2 = alien1.getLaptop();
-
-        System.out.println(alien1);
-        System.out.println(laptop2);
-
-
-
-        System.out.println("we are finding the alien form the laptop : ");
-
-        Laptop l3 = session.find(Laptop.class,1);
-        Alien a1 = l3.getAlien();
-
-        System.out.println(l3);
-        System.out.println(a1);
 
         session.close();
         sf.close();
