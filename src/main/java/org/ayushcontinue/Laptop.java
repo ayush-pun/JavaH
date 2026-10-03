@@ -1,9 +1,13 @@
 package org.ayushcontinue;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Embeddable
+@Entity
 public class Laptop {
+
+    @Id
     private int Lid;
     private String Lname;
     private String Lmodel;

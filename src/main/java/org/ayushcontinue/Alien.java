@@ -3,6 +3,7 @@ package org.ayushcontinue;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Alien {
@@ -11,9 +12,11 @@ public class Alien {
     private int aId;
     private String aName;
     private String tech;
+
+    @OneToOne
     private Laptop laptop;
 
-    @Embedded
+
     public Laptop getLaptop() {
         return laptop;
     }
