@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.awt.font.LayoutPath;
+import java.util.jar.JarOutputStream;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -15,6 +18,7 @@ public class Main {
         laptop.setLname("macbook air");
         laptop.setLmodel("m4");
         laptop.setRam(16);
+
 
         Laptop laptop1 = new Laptop();
         laptop1.setLid(2);
@@ -27,6 +31,7 @@ public class Main {
         alien.setaName("ayush");
         alien.setTech("java developer");
         alien.setLaptop(laptop);
+        laptop.setAlien(alien);
 
         Alien alien2 = new Alien();
         alien2.setaId(102);
@@ -52,6 +57,25 @@ public class Main {
 
 
         transaction.commit();
+
+
+        System.out.println("we are finding the laptop from the alioen");
+
+        Alien alien1 = session.find(Alien.class, 101);
+        Laptop laptop2 = alien1.getLaptop();
+
+        System.out.println(alien1);
+        System.out.println(laptop2);
+
+
+
+        System.out.println("we are finding the alien form the laptop : ");
+
+        Laptop l3 = session.find(Laptop.class,1);
+        Alien a1 = l3.getAlien();
+
+        System.out.println(l3);
+        System.out.println(a1);
 
         session.close();
         sf.close();

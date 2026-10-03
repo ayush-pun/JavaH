@@ -55,7 +55,6 @@ public class Alien {
                 "aId=" + aId +
                 ", aName='" + aName + '\'' +
                 ", tech='" + tech + '\'' +
-                ", laptop=" + laptop +
                 '}';
     }
 }

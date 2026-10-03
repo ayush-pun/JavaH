@@ -3,6 +3,7 @@ package org.ayushcontinue;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Laptop {
@@ -12,6 +13,17 @@ public class Laptop {
     private String Lname;
     private String Lmodel;
     private int ram;
+
+    @OneToOne(mappedBy = "laptop")
+    private Alien alien;
+
+    public Alien getAlien() {
+        return alien;
+    }
+
+    public void setAlien(Alien alien) {
+        this.alien = alien;
+    }
 
     public int getLid() {
         return Lid;
