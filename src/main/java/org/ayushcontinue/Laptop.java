@@ -13,14 +13,14 @@ public class Laptop {
     private String Lmodel;
     private int ram;
 
-    @ManyToMany(mappedBy = "laptops")
-    private List<Alien> aliens;
+    @ManyToOne
+    private Alien aliens;
 
-    public List<Alien> getAliens() {
+    public Alien getAliens() {
         return aliens;
     }
 
-    public void setAliens(List<Alien> aliens) {
+    public void setAliens(Alien aliens) {
         this.aliens = aliens;
     }
 

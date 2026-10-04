@@ -42,18 +42,16 @@ public class Main {
         alien1.setaName("anish");
         alien1.setTech("python developer");
 
-        Alien alien2 = new Alien();
-        alien2.setaId(103);
-        alien2.setaName("bishal");
-        alien2.setTech("react developer");
+
 
         alien.setLaptops(Arrays.asList(laptop,laptop1));
-        alien1.setLaptops(Arrays.asList(laptop,laptop2));
-        alien2.setLaptops(Arrays.asList(laptop1,laptop2));
+        alien1.setLaptops(Arrays.asList(laptop2));
 
-        laptop.setAliens(Arrays.asList(alien,alien1));
-        laptop1.setAliens(Arrays.asList(alien1,alien2));
-        laptop2.setAliens(Arrays.asList(alien1,alien2));
+        laptop.setAliens(alien);
+        laptop1.setAliens(alien);
+        laptop2.setAliens(alien1);
+
+
 
 
         Configuration cf = new Configuration();
@@ -66,18 +64,24 @@ public class Main {
         Session session = sf.openSession();
 
         Transaction transaction = session.beginTransaction();
-        session.persist(alien);
-        session.persist(alien1);
-        session.persist(alien2);
 
         session.persist(laptop);
         session.persist(laptop1);
         session.persist(laptop2);
 
-        session.find(Alien.class,102);
-
+        session.persist(alien);
+        session.persist(alien1);
 
         transaction.commit();
+
+
+
+        session.clear();
+
+        Alien a1 = session.find(Alien.class, 101);
+
+        System.out.println("ALIEN FOUND");
+        System.out.println(a1);
 
 
         session.close();

@@ -12,7 +12,7 @@ public class Alien {
     private String aName;
     private String tech;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "aliens", fetch = FetchType.EAGER)
     private List<Laptop> laptops;
 
 
