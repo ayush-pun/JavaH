@@ -3,10 +3,7 @@ package org.ayushcontinue;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
-import java.util.List;
-import java.util.Objects;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -22,48 +19,22 @@ public class Main {
         SessionFactory sf = cf.buildSessionFactory();
         Session session = sf.openSession();
 
-        /* basic fetching form the database using HQL
-
-        String hql = "From Laptop";
-
-        Query<Laptop> query = session.createQuery(hql,Laptop.class);
-
-        List<Laptop> laptops = query.getResultList();
-
-        System.out.println("");
-        System.out.println("the laptops form database :");
-        for(Laptop laptop : laptops){
-            System.out.println(laptop);
-        }
-        */
+        /*find() vs getReference (eager vs lazy loading)
+        so find () method is basically a eager method it searches the database for the data if avaliable returns the data and if not then null
+        even when we dont need the data right now  it executes  the query and fetch (say we are not using sout(laptop)) it will still execute the query*/
+        Laptop laptop = session.find(Laptop.class,1);
+        System.out.println(laptop);
 
 
-        /*
-        String hql = "select Lmodel from Laptop where Lname like ?1";
+        /*But the getReference() is a lazy way of fetching the data what it does is if we not necessaraly need the data right now it will just give me the
+        * reference of the Laptop, Hibernate returns a proxy a placeholder object represent the Laptop with id = 1*/
 
-        Query<String> query = session.createQuery(hql, String.class);
-        query.setParameter(1,"acer-nitro");
+        Laptop laptop1 = session.getReference(Laptop.class, 2);
 
-        List<String> names = query.getResultList();
+        //only when we do the need the data actully like for example we need data to print then only the data data is actually fetched
+        System.out.println("lazy fetching : ");
+        System.out.println(laptop1);
 
-        System.out.println(names);
-        */
-
-
-        //fetching multiple column form the database
-
-        String hql = "select Lname, Lmodel from Laptop where ram = ?1";
-
-        Query<Object[]> query = session.createQuery(hql,Object[].class);
-        query.setParameter(1,32);
-
-        List<Object[]> laptops = query.getResultList();
-
-        System.out.println("the data form the database :");
-        for(Object[] obj : laptops)
-        {
-            System.out.println(obj[0] + "  "+ obj[1]);
-        }
 
         session.close();
         sf.close();
