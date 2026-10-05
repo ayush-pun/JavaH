@@ -17,29 +17,28 @@ public class Main {
         cf.configure();
 
         SessionFactory sf = cf.buildSessionFactory();
+
         Session session = sf.openSession();
 
-        /*find() vs getReference (eager vs lazy loading)
-        so find () method is basically a eager method it searches the database for the data if avaliable returns the data and if not then null
-        even when we dont need the data right now  it executes  the query and fetch (say we are not using sout(laptop)) it will still execute the query*/
-        Laptop laptop = session.find(Laptop.class,1);
-        System.out.println(laptop);
+        //level-1 cache is working
+        Laptop l1 = session.find(Laptop.class,1);
+        System.out.println( l1);
 
-
-        /*But the getReference() is a lazy way of fetching the data what it does is if we not necessaraly need the data right now it will just give me the
-        * reference of the Laptop, Hibernate returns a proxy a placeholder object represent the Laptop with id = 1*/
-
-        Laptop laptop1 = session.getReference(Laptop.class, 2);
-
-        //only when we do the need the data actully like for example we need data to print then only the data data is actually fetched
-        System.out.println("lazy fetching : ");
-        System.out.println(laptop1);
-
+        Laptop l2 = session.find(Laptop.class,1);
+        System.out.println( l2);
 
         session.close();
+
+        //checking for the level2 caching and it was possible with the
+        //@Cacheable on the top of the Laptop class
+        Session session1 = sf.openSession();
+        Laptop l3 = session1.find(Laptop.class,1);
+        System.out.println( l3);
+
+        session1.close();
+
+
         sf.close();
-
-
 
 
     }

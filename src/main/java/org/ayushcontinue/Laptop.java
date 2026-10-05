@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+//this annotation make sure the laptop class is level2 cachable
+@Cacheable
+
 public class Laptop {
 
     @Id
